@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "P1FhHVdGBZBSqQVag30a8U+SFiOoHfBUW+zTtJ1WOkQ=",
+  "Source": "gradesService",
+  "BasePath": "_content/gradesService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
