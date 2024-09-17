@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
- 
+using Microsoft.EntityFrameworkCore;
+
 [ApiController]
 [Route("api/[controller]")]
 public class GradesController : ControllerBase
@@ -13,7 +14,7 @@ public class GradesController : ControllerBase
 
     //Asignar nueva calificación a un estudiante
     [HttpPost]
-    public async Task<IActionResult> AssignGrade([FromBody] Grade newGrade)
+    public async Task<IActionResult> AssignGrade([FromBody] GradeDto newGrade)
     {
         var grade = new Grade
         {
@@ -32,10 +33,12 @@ public class GradesController : ControllerBase
     }
 
     //Actualizar calificación existente
-    [HttpPut("{gradeId}")]
-    public async Task<IActionResult> UpdateGrade(Guid gradeId, [FromBody] Grade newGrade)
+    [HttpPut("{gradeId}/{studentId}")]
+    public async Task<IActionResult> UpdateGrade(Guid gradeId, Guid studentId, [FromBody] UpdateDto newGrade)
     {
-        var grade = await _context.Grades.FindAsync(gradeId);
+         var grade = await _context.Grades
+        .Where(g => g.GradeId == gradeId && g.StudentId == studentId)
+        .FirstOrDefaultAsync();
 
         if (grade == null)
             return NotFound();
