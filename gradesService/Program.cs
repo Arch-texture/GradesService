@@ -12,7 +12,7 @@ builder.Services.AddDbContext<GradesDbContext>(options =>
     ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("GradesDatabase"))));
 
 
-builder. Services.AddControllers();
+builder.Services.AddControllers();
 
 
 var app = builder.Build();
