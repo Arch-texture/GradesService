@@ -22,10 +22,15 @@ public class GradesController : ControllerBase
             return BadRequest("La calificación debe estar entre 1 y 7.");
         }
 
+        if (newGrade.StudentId == null)
+        {
+        return BadRequest("El StudentId es obligatorio.");
+        }
+
         var grade = new Grade
         {
             GradeId = Guid.NewGuid(),
-            StudentId = newGrade.StudentId,
+            StudentId = newGrade.StudentId.Value,
             SubjectName = newGrade.SubjectName,
             GradeName = newGrade.GradeName,
             Value = newGrade.Value,
@@ -47,7 +52,7 @@ public class GradesController : ControllerBase
         {
             return BadRequest("La calificación debe estar entre 1 y 7.");
         }
-        
+
          var grade = await _context.Grades
         .Where(g => g.GradeId == gradeId && g.StudentId == studentId)
         .FirstOrDefaultAsync();
