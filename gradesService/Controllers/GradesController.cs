@@ -16,6 +16,12 @@ public class GradesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AssignGrade([FromBody] GradeDto newGrade)
     {
+
+        if (newGrade.Value < 1.0 || newGrade.Value > 7.0)
+        {
+            return BadRequest("La calificación debe estar entre 1 y 7.");
+        }
+
         var grade = new Grade
         {
             GradeId = Guid.NewGuid(),
@@ -36,6 +42,12 @@ public class GradesController : ControllerBase
     [HttpPut("{gradeId}/{studentId}")]
     public async Task<IActionResult> UpdateGrade(Guid gradeId, Guid studentId, [FromBody] UpdateDto newGrade)
     {
+
+        if (newGrade.Value < 1.0 || newGrade.Value > 7.0)
+        {
+            return BadRequest("La calificación debe estar entre 1 y 7.");
+        }
+        
          var grade = await _context.Grades
         .Where(g => g.GradeId == gradeId && g.StudentId == studentId)
         .FirstOrDefaultAsync();
